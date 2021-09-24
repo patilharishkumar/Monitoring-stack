@@ -1,0 +1,64 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ template "grafana.full_name" . }}
+  namespace: {{ .Values.namespace }}
+  labels:
+    {{- include "grafana.release_labels" . | indent 4 }}
+spec:
+  replicas: {{ .Values.replicas }}
+  selector:
+    matchLabels:
+      {{- include "grafana.release_labels" . | indent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "grafana.release_labels" . | indent 8 }}
+    spec:
+      containers:
+      - name: {{ template "grafana.full_name" . }}
+        image: {{ .Values.imageRepository }}:{{ .Values.imageTag }}
+        imagePullPolicy: {{ .Values.imagePullPolicy }}
+        ports:
+        - name: http
+          containerPort: {{ .Values.containerPort }}
+        readinessProbe:
+          httpGet:
+            path: /api/health
+            port: http
+        resources:
+          limits:
+            cpu: {{ .Values.cpuLimit }}
+            memory: {{ .Values.memoryLimit }}
+          requests:
+            cpu: {{ .Values.cpuRequest }}
+            memory: {{ .Values.memoryRequest }}
+        volumeMounts:
+        - name: grafana-ini
+          mountPath: /etc/grafana/grafana.ini
+          subPath: grafana.ini
+        - mountPath: /etc/grafana/provisioning/datasources
+          name: grafana-datasource
+        - mountPath: /etc/grafana/provisioning/dashboards
+          name: grafana-dashboards
+        - mountPath: /grafana-dashboard-definitions/0/cluster-compute-resources
+          name: grafana-cluster-compute-resources
+        - mountPath: /grafana-dashboard-definitions/0/namespace-compute-resources
+          name: grafana-namespace-compute-resources
+      serviceAccountName: {{ template "grafana.full_name" . }}
+      volumes:
+      - name: grafana-ini
+        configMap:  
+          name: {{ template "grafana.full_name" . }}
+      - name: grafana-datasource
+        secret:
+          secretName: {{ template "grafana.full_name" . }}
+      - name: grafana-dashboards
+        configMap:  
+          name: grafana-dashboards
+      - name: grafana-cluster-compute-resources
+        secret:
+          secretName: {{ template "grafana.full_name" . }}-cluster
+      - name: grafana-namespace-compute-resources
+        secret:
+          secretName: {{ template "grafana.full_name" . }}-namespace
