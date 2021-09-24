@@ -2,7 +2,7 @@
 appName: cpaas-elasticsearch
 namespace: cpaas-elasticsearch-cluster
 imageRepository: docker.elastic.co/elasticsearch/elasticsearch-oss
-imageTag: 7.3.0
+imageTag: 7.10.2
 imagePullPolicy: Always
 replicas: 3
 updateStrategy: RollingUpdate
