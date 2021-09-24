@@ -79,7 +79,7 @@ spec:
                   - key: "app"
                     operator: In
                     values:
-                    - ha-elasticsearch
+                    - cpaas-elasticsearch
               topologyKey: "kubernetes.io/hostname"
       initContainers:
       - name: increase-vm-max-map

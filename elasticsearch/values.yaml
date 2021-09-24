@@ -1,9 +1,8 @@
 # Statefulset metadata & spec
-appName: ha-elasticsearch
-namespace: ha-elasticsearch-cluster
+appName: cpaas-elasticsearch
+namespace: cpaas-elasticsearch-cluster
 imageRepository: docker.elastic.co/elasticsearch/elasticsearch-oss
 imageTag: 7.3.0
-#imageTag: 7.0.1
 imagePullPolicy: Always
 replicas: 3
 updateStrategy: RollingUpdate
@@ -23,18 +22,18 @@ serviceType: ClusterIP
 
 # Elasticsearch options
 esJavaOpts: "-Xms2000m -Xmx2000m"
-clusterName: ha-elasticsearch-cluster
-nodePrefix: "ha-elasticsearch"
+clusterName: cpaas-elasticsearch-cluster
+nodePrefix: "cpaas-elasticsearch"
 minMasterNodes: 2
 vmMaxMapCount: 262144
 fileDescriptorLimit: 65535
 
 # Persistency
-volumeName: ha-elasticsearch-volume
+volumeName: cpaas-elasticsearch-volume
 storageClass: gp2
 accessMode: ReadWriteOnce
 storageResourceRequest: 20Gi
 
 # Pod Disruption Budget
 maxUnavailable: 1
-pdbName: ha-elasticsearch-pdb
+pdbName: cpaas-elasticsearch-pdb

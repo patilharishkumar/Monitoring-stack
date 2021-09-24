@@ -8,7 +8,7 @@ cpuRequest: "100m"
 memoryLimit: "512Mi"
 memoryRequest: "200Mi"
 
-elasticsearchHost: "ha-elasticsearch.ha-elasticsearch-cluster.svc.cluster.local"
+elasticsearchHost: "cpaas-elasticsearch.cpaas-elasticsearch-cluster.svc.cluster.local"
 elasticsearchPort: 9200
 elasticsearchScheme: http
 uid: 0

@@ -12,4 +12,4 @@ memoryRequest: "100Mi"
 containerPort: 5601
 serviceType: LoadBalancer
 
-elasticsearchUrl: "http://ha-elasticsearch.ha-elasticsearch-cluster.svc.cluster.local:9200"
+elasticsearchUrl: "http://cpaas-elasticsearch.cpaas-elasticsearch-cluster.svc.cluster.local:9200"
